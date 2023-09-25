@@ -16,14 +16,13 @@ https://github.com/RubenD-hub/Vital_Signs-Plataform/blob/main/Install_Plataform.
 
 <h3 style="color:orange">Pasos de creacion del Instalador</h3>
  
-Copia el contenido del archivo <b style = "color:green">install_Monitor.sh</b>
-1. En el servidor linux (Ubuntu LTS recomendado) crearemos un archivo llamado <b style = "color:green">install_Monitor.sh</b> con el comando:
+1. En el servidor linux (Ubuntu LTS recomendado) crearemos un archivo llamado <b style = "color:green">Install_Plataform.sh</b> con el comando:
 
 ```bash
-sudo nano install.sh
+sudo nano Install_Plataform.sh
 ```
 
-2. Tienes que optener la copia del contenido del archivo <b style = "color:green">install_Monitor.sh</b> que se encuentra en este repositorio.
+2. Tienes que optener la copia del contenido del archivo <b style = "color:green">Install_Plataform.sh</b> que se encuentra en este repositorio.
 
 3. Una vez en el editor nano pegamos el contenido que habíamos copiado.
 
@@ -32,7 +31,7 @@ sudo nano install.sh
 5. Ahora ejecutaremos el siguiente comando para darle permisos totales al archivo recientemente creado.
 
 ```bash
-sudo chmod 777 install.sh
+sudo chmod 777 Install_Plataform.sh
 ```
 
 <h2 style="color:orange">Ejecución:</h2>
@@ -43,7 +42,7 @@ Ahora sí, momento de ejecutar nuestro instalador. (El mismo obtendra tanto los 
 1. Ejecutar el instalador
 
 ```bash
-sudo ./install.sh
+sudo ./Install_Plataform.sh
 ```
 
 2. Responder el cuestionario para efectuar la instalación.
@@ -54,16 +53,16 @@ sudo ./install.sh
 
 - Como verán en el repositorio tenemos tres archivos docker-compose importantes.
 
-  - docker_node_install.yml:
+  - **docker_node_install.yml:**
 
     Este compose, lo ejecutaremos cuando a futuro necesitemos instalar dependencias nuevas vía npm.
 
-  - docker_nuxt_build.yml:
+  - **docker_nuxt_build.yml:**
 
     Este compose, lo ejecutaremos cuando por ejemplo, modificamos el código de nuestro repositorio (algo en el front po ejemplo) y necesitemos llevar estos cambios a producción.
     Al ejecutar este compose, estaremos haciendo un "build" con nuxt. Lo que recompilara tanto código front como el de nuestra api.
 
-  - docker_compose_production.yml:
+  - **docker_compose_production.yml:**
 
     Este último es el que lanza a producción nuestra plataforma. Y es el único que deberíamos correr con el "-d" al final de comando para que quede corriendo como servicio.
 
