@@ -216,3 +216,86 @@ printf "   🟢 SSL?: $(tput setaf 128)${opt}$(tput setaf 7)\n"
 printf "\n\n\n\n";
 read -p "Presiona Enter para comenzar la instalación..."
 sleep 2
+
+# sudo apt-get update
+# wget https://get.docker.com/
+# sudo mv index.html install_docker.sh
+# sudo chmod 777 install_docker.sh
+# sudo ./install_docker.sh
+# sudo rm install_docker.sh
+# sudo curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# sudo chmod +x /usr/local/bin/docker-compose
+sudo git clone https://github.com/RubenD-hub/Monitor_Service.git
+sudo mv Monitor_Service services
+
+cd services
+
+## ______________________________
+## INSALL INIT
+filename='.env'
+
+#SERVICES .ENV
+sudo sh -c " echo 'environment=prod' >> $filename"
+sudo sh -c " echo '' >> $filename"
+sudo sh -c " echo '# TIMEZONE (all containers).' >> $filename"
+sudo sh -c " echo 'TZ=${TZ}' >> $filename"
+sudo sh -c " echo '' >> $filename"
+sudo sh -c " echo '# M O N G O' >> $filename"
+sudo sh -c " echo 'MONGO_USERNAME=${MONGO_USERNAME}' >> $filename"
+sudo sh -c " echo 'MONGO_PASSWORD=${MONGO_PASSWORD}' >> $filename"
+sudo sh -c " echo 'MONGO_EXT_PORT=${MONGO_PORT}' >> $filename"
+sudo sh -c " echo '' >> $filename"
+sudo sh -c " echo '# E M Q X' >> $filename"
+sudo sh -c " echo 'EMQX_DEFAULT_USER_PASSWORD=${EMQX_DEFAULT_USER_PASSWORD}' >> $filename"
+sudo sh -c " echo 'EMQX_DEFAULT_APPLICATION_SECRET=${EMQX_DEFAULT_APPLICATION_SECRET}' >> $filename"
+sudo sh -c " echo '' >> $filename"
+sudo sh -c " echo '# I P  C O N E C T I O N' >> $filename"
+sudo sh -c " echo 'IP_PUBLIC=${IP}' >> $filename"
+
+
+sudo git clone https://github.com/RubenD-hub/Monitor_App.git
+sudo mv Monitor_App  app
+
+cd app
+
+sudo sh -c "echo 'environment=prod' >> $filename"
+sudo sh -c "echo '' >> $filename"
+
+#A P I  - N O D E 
+sudo sh -c "echo '#A P I  - N O D E ' >> $filename"
+sudo sh -c "echo 'API_PORT=3001' >> $filename"
+sudo sh -c "echo 'WEBHOOKS_HOST=node' >> $filename"
+sudo sh -c "echo 'MQTT_NOTIFICATION_HOST=${IP}' >> $filename"
+sudo sh -c "echo '' >> $filename"
+
+# M O N G O 
+sudo sh -c "echo '# M O N G O' >> $filename"
+sudo sh -c "echo 'MONGO_USERNAME=${MONGO_USERNAME}' >> $filename"
+sudo sh -c "echo 'MONGO_PASSWORD=${MONGO_PASSWORD}' >> $filename"
+sudo sh -c "echo 'MONGO_HOST=mongo' >> $filename"
+sudo sh -c "echo 'MONGO_PORT=${MONGO_PORT}' >> $filename"
+sudo sh -c "echo 'MONGO_DATABASE=ioticos_god_level' >> $filename"
+sudo sh -c "echo '' >> $filename"
+
+# E M Q X
+sudo sh -c "echo '# E M Q X' >> $filename"
+sudo sh -c " echo 'EMQX_DEFAULT_APPLICATION_SECRET=${EMQX_DEFAULT_APPLICATION_SECRET}' >> $filename"
+sudo sh -c " echo 'EMQX_NODE_SUPERUSER_USER=${EMQX_NODE_SUPERUSER_USER}' >> $filename"
+sudo sh -c " echo 'EMQX_NODE_SUPERUSER_PASSWORD=${EMQX_NODE_SUPERUSER_PASSWORD}' >> $filename"
+sudo sh -c " echo 'EMQX_API_HOST=${IP}' >> $filename"
+sudo sh -c " echo 'EMQX_API_TOKEN=${EMQX_API_TOKEN}' >> $filename"
+sudo sh -c "echo 'EMQX_RESOURCES_DELAY=30000' >> $filename"
+sudo sh -c "echo '' >> $filename"
+
+# F R O N T
+sudo sh -c "echo '# F R O N T' >> $filename"
+sudo sh -c "echo 'APP_PORT=3000' >> $filename"
+sudo sh -c "echo 'AXIOS_BASE_URL=${SSL}${DOMAIN}:3001/api' >> $filename"
+
+sudo sh -c "echo 'MQTT_PORT=${MQTT_PORT}' >> $filename"
+sudo sh -c "echo 'MQTT_HOST=${DOMAIN}' >> $filename"
+sudo sh -c "echo 'MQTT_PREFIX=${WSPREFIX}' >> $filename"
+
+sudo sh -c " echo 'SSLREDIRECT=${SSLREDIRECT}' >> $filename"
+
+cd ..
