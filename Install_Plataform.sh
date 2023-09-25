@@ -188,3 +188,31 @@ if [[ $SSL -eq 1 ]]
     MQTT_HOST=$IP
     SSLREDIRECT="false"
 fi
+
+## _____________Resumen__________________
+msg="
+============================================
+                Resumen                                    
+============================================                                                                                                                         
+"
+
+tput setaf 128;
+printf "$msg"
+tput setaf 7;
+
+printf "\n\n\n"
+printf "   🟢 TIMEZONE: $(tput setaf 128)${TZ}$(tput setaf 7)\n"
+printf "   🟢 MONGO USER: $(tput setaf 128)${MONGO_USERNAME}$(tput setaf 7)\n"
+printf "   🟢 MONGO PASS: $(tput setaf 128)${MONGO_PASSWORD}$(tput setaf 7)\n"
+printf "   🟢 MONGO PORT: $(tput setaf 128)${MONGO_PORT}$(tput setaf 7)\n"
+printf "   🟢 EMQX API PASSWORD: $(tput setaf 128)${EMQX_DEFAULT_APPLICATION_SECRET}$(tput setaf 7)\n"
+printf "   🟢 MQTT SUPERUSER: $(tput setaf 128)${EMQX_NODE_SUPERUSER_USER}$(tput setaf 7)\n"
+printf "   🟢 MQTT SUPER PASS: $(tput setaf 128)${EMQX_NODE_SUPERUSER_PASSWORD}$(tput setaf 7)\n"
+printf "   🟢 WEBHOOK WEB TOKEN: $(tput setaf 128)${EMQX_API_TOKEN}$(tput setaf 7)\n"
+printf "   🟢 DOMAIN: $(tput setaf 128)${DOMAIN}$(tput setaf 7)\n"
+printf "   🟢 IP: $(tput setaf 128)${IP}$(tput setaf 7)\n"
+printf "   🟢 SSL?: $(tput setaf 128)${opt}$(tput setaf 7)\n"
+
+printf "\n\n\n\n";
+read -p "Presiona Enter para comenzar la instalación..."
+sleep 2
