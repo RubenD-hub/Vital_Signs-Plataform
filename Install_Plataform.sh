@@ -127,3 +127,64 @@ do
   EMQX_API_TOKEN=${EMQX_API_TOKEN:-${random_str}}
   echo "      Selected EMQX API WEB TOKEN  ► ${EMQX_API_TOKEN} ✅"
 done
+
+## ______________________________
+## FRONT
+#DOMAIN 
+printf "\n\n🌐 Ingresa el dominio a donde se alojará este servicio. \n"
+printf "   Si todavía no tienes uno podrás ingresar la ip fija del VPS a donde lo estés instalando. \n"
+printf "   Luego podrás cambiarlo desde las variables de entorno. \n"
+while [[ -z "$DOMAIN" ]]
+do
+  read -p "   (No http, No www | ex.-> mydomain.com) Dominio: "  DOMAIN
+  echo "         Selected Domain ► ${DOMAIN} ✅"
+done
+
+#IP 
+printf "\n\n🌐 Ingresa la ip pública del VPS. \n"
+while [[ -z "$IP" ]]
+do
+  read -p "   IP: "  IP
+  echo "         Selected IP ► ${IP} ✅"
+done
+
+#SSL?
+printf "\n\n🔐 El sistema está pensado para que un balanceador de cargas gestione los certificados SSL. \n"
+printf "   Si la plataforma estará bajo SSL utilizando balanceador de cargas o proporcionando certificados, selecciona 'Con SSL'. \n"
+printf "   Esto forzará la redirección SSL, además, el cliente web, se conectará al broker mqtt mediante websocket seguro. \n"
+printf "   Si de momento vas a acceder a la plataforma usando una ip, o un dominio sin ssl... selecciona 'Sin SSL'. \n\n"
+PS3='   SSL?: '
+options=("Con SSL" "Sin SSL")
+select opt in "${options[@]}"
+do
+    case $REPLY in
+        "1")
+            echo "         SSL? ► ${character} ✅"
+            break
+            ;;
+        "2")
+            echo "         SSL? ► ${character} ✅"
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+
+SSL=$REPLY
+WSPREFIX=""
+SSLREDIRECT=""
+
+if [[ $SSL -eq 1 ]]
+  then
+    SSL="https://"
+    WSPREFIX="wss://"
+    MQTT_HOST=$DOMAIN
+    MQTT_PORT="8084"
+    SSLREDIRECT="true"
+  else
+    SSL="http://"
+    WSPREFIX="ws://"
+    MQTT_PORT="8083"
+    MQTT_HOST=$IP
+    SSLREDIRECT="false"
+fi
